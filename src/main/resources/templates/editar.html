@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Despesa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f7f7f7;
+        }
+
+        h2 {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            display: inline-block;
+            text-align: left;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #fff;
+            width: 400px;
+            max-width: 90%;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 16px 0;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        textarea {
+            min-height: 60px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .buttons button,
+        .buttons a {
+            padding: 10px 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            color: white;
+        }
+
+        .btn-save {
+            background-color: #007bff;
+        }
+
+        .btn-save:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+        }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Editar Despesa</h2>
+
+    <div class="form-container">
+        <form th:action="@{'/despesas/editar/' + ${despesa.id}}" method="post" th:object="${despesa}">
+            <label>Descrição:</label>
+            <textarea th:field="*{descricao}" required></textarea>
+
+            <label>Categoria:</label>
+            <input type="text" th:field="*{categoria}" required>
+
+            <label>Valor:</label>
+            <input type="number" step="0.01" th:field="*{valor}" required>
+
+            <label>Data de Vencimento:</label>
+            <input type="date" th:field="*{dataVencimento}" required>
+
+            <label>Status:</label>
+            <select th:field="*{status}">
+                <option value="Pendente">Pendente</option>
+                <option value="Pago">Pago</option>
+            </select>
+
+            <div class="buttons">
+                <button type="submit" class="btn-save">Salvar Alterações</button>
+                <a href="/despesas" class="btn-back">Voltar</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

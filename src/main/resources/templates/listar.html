@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Despesas Cadastradas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #eee;
+        }
+
+        .action-buttons a {
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin: 0 4px;
+            font-size: 14px;
+        }
+
+        .btn-edit {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .bottom-buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .bottom-buttons a {
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .bottom-buttons a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Despesas Cadastradas</h2>
+
+    <table>
+        <tr>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Valor</th>
+            <th>Data de Vencimento</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        <tr th:each="despesa : ${despesas}">
+            <td th:text="${despesa.descricao}"></td>
+            <td th:text="${despesa.categoria}"></td>
+            <td th:text="${despesa.valor}"></td>
+            <td th:text="${despesa.dataVencimento}"></td>
+            <td th:text="${despesa.status}"></td>
+            <td class="action-buttons">
+                <a th:href="@{'/despesas/editar/' + ${despesa.id}}" class="btn-edit">✏️</a>
+                <a th:href="@{'/despesas/excluir/' + ${despesa.id}}"
+                   onclick="return confirm('Tem certeza que deseja excluir esta despesa?')" class="btn-delete">🗑️</a>
+            </td>
+        </tr>
+    </table>
+
+    <div class="bottom-buttons">
+        <a href="/">Voltar</a>
+        <a href="/despesas/cadastro">Cadastrar Despesa</a>
+    </div>
+
+</body>
+</html>
